@@ -17,6 +17,9 @@ class MongoQueue():
         
         #self.client.write_concern = {"w":1}
         doc = self.coll.find_and_modify(query={}, sort={"_id":1}, remove=True)
+        if doc is None:
+            return None
+        #else:
         return doc["item"]
 
     def drop(self):
